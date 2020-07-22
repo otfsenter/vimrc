@@ -87,7 +87,8 @@ map <leader>d ^f[l<ESC>ci]done<esc>:w!<cr>
 map <leader>i ^f[l<ESC>ci]doing<esc>:w!<cr>
 
 " read tree in file
-map <F6> :%d<cr>:r !tree /F /A .<cr>:w!<cr>
+noremap <F4> :w!<cr>:e tree<cr>:%d<cr>:r !tree /F /A .<cr>:w!<cr>
+inoremap <F4> <esc>:w!<cr>:e tree<cr>:%d<cr>:r !tree /F /A .<cr>:w!<cr>
 
 inoremap { {<cr>}<esc>O
 
