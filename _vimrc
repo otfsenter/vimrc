@@ -76,12 +76,14 @@ endfunction
 
 " insert time
 iab mn <c-r>=strftime("(20%y-%m-%d %H:%M)")<cr>
+iab mi .. image:: ./images/1.png
 
 " set path to find file
 set path+=D:/note/pydict/source/**
 
 " todo list
 inoremap mt - [ ] 
+iab mtn - [ ] <c-r>=strftime("(20%y-%m-%d %H:%M)")<cr>
 map <leader>t ^f[l<ESC>ci] <esc>:w!<cr>
 map <leader>d ^f[l<ESC>ci]done<esc>:w!<cr>
 map <leader>i ^f[l<ESC>ci]doing<esc>:w!<cr>
