@@ -31,8 +31,6 @@ let $LANG = 'en_US'
 set scrolloff=5
 set wildmenu
 
-autocmd filetype py nmap <F5> :w!<CR>:!python %<CR>
-autocmd filetype java nnoremap <F5> :w!<CR> :!javac %<CR> :!java %:r<CR>
 
 function HeaderPython()
     call setline(1, "#!/usr/bin/env python")
@@ -88,11 +86,14 @@ map <leader>t ^f[l<ESC>ci] <esc>:w!<cr>
 map <leader>d ^f[l<ESC>ci]done<esc>:w!<cr>
 map <leader>i ^f[l<ESC>ci]doing<esc>:w!<cr>
 
+inoremap { {<cr>}<esc>O
+
 " read tree in file
 noremap <F4> :w!<cr>:e tree<cr>:%d<cr>:r !tree /F /A .<cr>:w!<cr>
 inoremap <F4> <esc>:w!<cr>:e tree<cr>:%d<cr>:r !tree /F /A .<cr>:w!<cr>
-
-inoremap { {<cr>}<esc>O
+autocmd filetype py nmap <F5> :w!<CR>:!python %<CR>
+autocmd filetype java nnoremap <F5> :w!<CR> :!javac %<CR> :!java %:r<CR>
+noremap <F6> :w!<CR>:r !python D:\code\vimrc\day_study.py<CR>:w!<CR>
 
 " add num
 inoremap <F7> <ESC>yiWA=<C-R>=<C-R>"<CR><ESC>:w!<CR>
