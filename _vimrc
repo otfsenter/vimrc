@@ -80,7 +80,6 @@ iab mi .. image:: ./images/1.png
 set path+=D:/note/pydict/source/**
 
 " todo list
-inoremap mt - [ ] 
 iab mtn - [ ] <c-r>=strftime("(20%y-%m-%d %H:%M)")<cr>
 map <leader>t ^f[l<ESC>ci] <esc>:w!<cr>
 map <leader>d ^f[l<ESC>ci]done<esc>:w!<cr>
