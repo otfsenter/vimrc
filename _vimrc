@@ -7,11 +7,17 @@ set guifont=consolas:h12
 
 let g:iswindows = 0
 let g:islinux = 0
-
 if (has("win32") || has("win64") || has("win95") || has("win16"))
     let g:iswindows = 1
 else
     let g:islinux = 1
+endif
+
+
+if has("gui_running")
+    let g:isGUI = 1
+else
+    let g:isGUI = 0
 endif
 
 syntax on
@@ -42,7 +48,9 @@ set wildmenu
 
 
 function HeaderPython()
-    call setline(1, "#!/usr/bin/env python")
+    if g:iswindows
+        call setline(1, "#!/usr/bin/python3")
+    endif
     call setline(2, "# -*- coding: utf-8 -*-")
     call setline(3, "# author: otfsenter")
     normal G
@@ -98,13 +106,13 @@ map <leader>i ^f[l<ESC>ci]doing<esc>:w!<cr>
 
 inoremap { {<cr>}<esc>O
 
+" F4 read tree in file
 if g:iswindows
-    " read tree in file
     noremap <F4> :w!<cr>:e tree<cr>:%d<cr>:r !tree /F /A .<cr>:w!<cr>
     inoremap <F4> <esc>:w!<cr>:e tree<cr>:%d<cr>:r !tree /F /A .<cr>:w!<cr>
 endif
 
-" run python scripts 
+" F5 run python scripts 
 autocmd filetype py nmap <F5> :w!<CR>:!python %<CR>
 autocmd filetype java nnoremap <F5> :w!<CR> :!javac %<CR> :!java %:r<CR>
 
