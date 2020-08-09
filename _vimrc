@@ -15,9 +15,9 @@ endif
 
 
 if has("gui_running")
-    let g:isGUI = 1
+    let g:isgui = 1
 else
-    let g:isGUI = 0
+    let g:isgui = 0
 endif
 
 syntax on
@@ -48,7 +48,7 @@ set wildmenu
 
 
 function HeaderPython()
-    if g:iswindows
+    if g:islinux
         call setline(1, "#!/usr/bin/python3")
     endif
     call setline(2, "# -*- coding: utf-8 -*-")
