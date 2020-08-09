@@ -1,8 +1,18 @@
 set nocompatible
 set encoding=utf8
+set guioptions-=T
 
 set number
 set guifont=consolas:h12
+
+let g:iswindows = 0
+let g:islinux = 0
+
+if (has("win32") || has("win64") || has("win95") || has("win16"))
+    let g:iswindows = 1
+else
+    let g:islinux = 1
+endif
 
 syntax on
 
@@ -30,8 +40,6 @@ let $LANG = 'en_US'
 set scrolloff=5
 set wildmenu
 
-autocmd filetype py nmap <F5> :w!<CR>:!python %<CR>
-autocmd filetype java nnoremap <F5> :w!<CR> :!javac %<CR> :!java %:r<CR>
 
 function HeaderPython()
     call setline(1, "#!/usr/bin/env python")
@@ -42,9 +50,42 @@ function HeaderPython()
 endf
 autocmd bufnewfile *.py call HeaderPython()
 
+if g:iswindows
+    source $VIMRUNTIME/vimrc_example.vim
+    source $VIMRUNTIME/mswin.vim
+    source $VIMRUNTIME/delmenu.vim
+    source $VIMRUNTIME/menu.vim
+    behave mswin
+
+    set diffexpr=MyDiff()
+    function MyDiff()
+    let opt = '-a --binary '
+    if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+    if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+    let arg1 = v:fname_in
+    if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+    let arg2 = v:fname_new
+    if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+    let arg3 = v:fname_out
+    if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+    let eq = ''
+    if $VIMRUNTIME =~ ' '
+        if &sh =~ '\<cmd'
+        let cmd = '""' . $VIMRUNTIME . '\diff"'
+        let eq = '"'
+        else
+        let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+        endif
+    else
+        let cmd = $VIMRUNTIME . '\diff'
+    endif
+    silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+    endfunction
+endif
 
 " insert time
 iab mn <c-r>=strftime("(20%y-%m-%d %H:%M)")<cr>
+iab mi .. image:: ./images/1.png
 
 " set path to find file
 set path+=D:/note/pydict/source/**
@@ -55,13 +96,36 @@ map <leader>t ^f[l<ESC>ci] <esc>:w!<cr>
 map <leader>d ^f[l<ESC>ci]done<esc>:w!<cr>
 map <leader>i ^f[l<ESC>ci]doing<esc>:w!<cr>
 
-" read tree in file
-map <F6> :%d<cr>:r !tree /F /A .<cr>:w!<cr>
-
 inoremap { {<cr>}<esc>O
+
+if g:iswindows
+    " read tree in file
+    noremap <F4> :w!<cr>:e tree<cr>:%d<cr>:r !tree /F /A .<cr>:w!<cr>
+    inoremap <F4> <esc>:w!<cr>:e tree<cr>:%d<cr>:r !tree /F /A .<cr>:w!<cr>
+endif
+
+" run python scripts 
+autocmd filetype py nmap <F5> :w!<CR>:!python %<CR>
+autocmd filetype java nnoremap <F5> :w!<CR> :!javac %<CR> :!java %:r<CR>
+
+if g:iswindows
+    " Ebbinghaus
+    noremap <F6> :w!<CR>:r !python D:\code\vimrc\day_study.py<CR>:w!<CR>
+endif
 
 " add num
 inoremap <F7> <ESC>yiWA=<C-R>=<C-R>"<CR><ESC>:w!<CR>
 
 map <Enter> o<ESC>j
 map <S-Enter> O<ESC>
+
+nnoremap <C-l> :nohlsearch<CR>
+
+noremap :e :w!<CR>:e
+
+set spelllang=en_us,cjk
+set spellcapcheck=
+
+
+autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR><C-W>j
+
