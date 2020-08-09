@@ -100,9 +100,12 @@ inoremap <F7> <ESC>yiWA=<C-R>=<C-R>"<CR><ESC>:w!<CR>
 map <Enter> o<ESC>j
 map <S-Enter> O<ESC>
 
-nnoremap <C-l> :nohlsearch
+nnoremap <C-l> :nohlsearch<CR>
 
 noremap :e :w!<CR>:e
 
 set spelllang=en_us,cjk
 set spellcapcheck=
+
+
+autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR><C-W>j
