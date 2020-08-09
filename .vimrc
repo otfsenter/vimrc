@@ -96,7 +96,9 @@ iab mn <c-r>=strftime("(20%y-%m-%d %H:%M)")<cr>
 iab mi .. image:: ./images/1.png
 
 " set path to find file
-set path+=D:/note/pydict/source/**
+if g:iswindows
+    set path+=D:/note/pydict/source/**
+endif
 
 " todo list
 inoremap mtn - [ ] <c-r>=strftime("(20%y-%m-%d %H:%M)")<cr>
