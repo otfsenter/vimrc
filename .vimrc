@@ -115,7 +115,7 @@ if g:iswindows
 endif
 
 " F5 run python scripts 
-autocmd filetype py nmap <F5> :w!<CR>:!python %<CR>
+autocmd filetype python nmap <F5> :w!<CR>:!python %<CR>
 autocmd filetype java nnoremap <F5> :w!<CR> :!javac %<CR> :!java %:r<CR>
 
 if g:iswindows
@@ -131,7 +131,6 @@ map <S-Enter> O<ESC>
 
 nnoremap <C-l> :nohlsearch<CR>
 
-noremap :e :w!<CR>:e
 
 set spelllang=en_us,cjk
 set spellcapcheck=
