@@ -129,7 +129,7 @@ inoremap <F7> <ESC>yiWA=<C-R>=<C-R>"<CR><ESC>:w!<CR>
 map <Enter> o<ESC>j
 map <S-Enter> O<ESC>
 
-nnoremap <C-l> :nohlsearch<CR>
+nnoremap <C-l> :nohlsearch<CR>:w!<CR>
 
 
 set spelllang=en_us,cjk
