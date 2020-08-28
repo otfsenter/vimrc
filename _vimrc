@@ -5,6 +5,8 @@ set guioptions-=T
 set number
 set guifont=consolas:h12
 
+autocmd TextChanged,TextChangedI * silent write
+
 let g:iswindows = 0
 let g:islinux = 0
 if (has("win32") || has("win64") || has("win95") || has("win16"))
@@ -102,34 +104,34 @@ endif
 
 " todo list
 inoremap mtn - [ ] <c-r>=strftime("(20%y-%m-%d %H:%M)")<cr>
-map <leader>t ^f[l<ESC>ci] <esc>:w!<cr>
-map <leader>d ^f[l<ESC>ci]done<esc>:w!<cr>
-map <leader>i ^f[l<ESC>ci]doing<esc>:w!<cr>
+map <leader>t ^f[l<ESC>ci] <esc>
+map <leader>d ^f[l<ESC>ci]done<esc>
+map <leader>i ^f[l<ESC>ci]doing<esc>
 
 inoremap { {<cr>}<esc>O
 
 " F4 read tree in file
 if g:iswindows
-    noremap <F4> :w!<cr>:e tree<cr>:%d<cr>:r !tree /F /A .<cr>:w!<cr>
-    inoremap <F4> <esc>:w!<cr>:e tree<cr>:%d<cr>:r !tree /F /A .<cr>:w!<cr>
+    noremap <F4> :e tree<cr>:%d<cr>:r !tree /F /A .<cr>
+    inoremap <F4> <esc>:e tree<cr>:%d<cr>:r !tree /F /A .<cr>
 endif
 
 " F5 run python scripts 
-autocmd filetype python nmap <F5> :w!<CR>:!python %<CR>
-autocmd filetype java nnoremap <F5> :w!<CR> :!javac %<CR> :!java %:r<CR>
+autocmd filetype python nmap <F5> :!python %<CR>
+autocmd filetype java nnoremap <F5> :!javac %<CR> :!java %:r<CR>
 
 if g:iswindows
     " Ebbinghaus
-    noremap <F6> :w!<CR>:r !python D:\code\vimrc\day_study.py<CR>:w!<CR>
+    noremap <F6> :r !python D:\code\vimrc\day_study.py<CR>
 endif
 
 " add num
-inoremap <F7> <ESC>yiWA=<C-R>=<C-R>"<CR><ESC>:w!<CR>
+inoremap <F7> <ESC>yiWA=<C-R>=<C-R>"<CR><ESC>
 
 map <Enter> o<ESC>j
 map <S-Enter> O<ESC>
 
-nnoremap <C-l> :nohlsearch<CR>:w!<CR>
+nnoremap <C-l> :nohlsearch<CR>
 
 
 set spelllang=en_us,cjk
