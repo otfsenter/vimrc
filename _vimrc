@@ -5,7 +5,7 @@ set guioptions-=T
 set number
 set guifont=consolas:h12
 
-autocmd TextChanged,TextChangedI * silent write
+autocmd TextChanged,TextChangedI *.rst,*.txt silent write
 
 let g:iswindows = 0
 let g:islinux = 0
@@ -112,8 +112,8 @@ inoremap { {<cr>}<esc>O
 
 " F4 read tree in file
 if g:iswindows
-    noremap <F4> :e tree<cr>:%d<cr>:r !tree /F /A .<cr>
-    inoremap <F4> <esc>:e tree<cr>:%d<cr>:r !tree /F /A .<cr>
+    noremap <F4> :e tree<cr>:%d<cr>:r !tree /F /A .<cr>:w!<CR>
+    inoremap <F4> <esc>:e tree<cr>:%d<cr>:r !tree /F /A .<cr>:w!<CR>
 endif
 
 " F5 run python scripts 
