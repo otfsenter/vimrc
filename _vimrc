@@ -40,7 +40,13 @@ set ignorecase
 set smartcase
 
 "set cursorline
-set foldmethod=manual
+" set foldmethod=manual
+set foldmethod=indent
+set foldnestmax=1
+nnoremap <space> za
+vnoremap <space> zf
+
+
 
 set langmenu=en_US
 let $LANG = 'en_US'
