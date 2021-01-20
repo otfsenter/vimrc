@@ -53,7 +53,7 @@ set wildmenu
 
 function HeaderPython()
     if g:islinux
-        call setline(1, "#!/usr/bin/python3")
+        call setline(1, "#!/usr/bin/env python3")
     endif
     call setline(2, "# -*- coding: utf-8 -*-")
     call setline(3, "# author: otfsenter")
