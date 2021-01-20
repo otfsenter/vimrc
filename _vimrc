@@ -123,7 +123,16 @@ if g:iswindows
 endif
 
 " F5 run python scripts 
-autocmd filetype python nmap <F5> :!python %<CR>
+
+if g:iswindows
+    set makeprg=python\ %
+else
+    set makeprg=python3\ %
+endif
+
+" autocmd filetype python nmap <F5> :w!<CR>:!python %<CR>
+autocmd filetype python nmap <F5> :w!<CR>:compiler pyunit<CR>:make <bar> copen<CR>
+autocmd filetype python imap <F5> :w!<CR>:compiler pyunit<CR>:make <bar> copen<CR>
 autocmd filetype java nnoremap <F5> :!javac %<CR> :!java %:r<CR>
 
 if g:iswindows
@@ -144,4 +153,5 @@ set spelllang=en_us,cjk
 set spellcapcheck=
 
 
-autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR><C-W>j
+" autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR><C-W>j
+autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR>
