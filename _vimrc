@@ -143,6 +143,11 @@ endif
 " add num
 inoremap <F7> <ESC>yiWA=<C-R>=<C-R>"<CR><ESC>
 
+if g:iswindows
+    " token
+    noremap <F8> :w!<CR> :e token.py<CR>:!python %<CR>
+endif
+
 map <Enter> o<ESC>j
 map <S-Enter> O<ESC>
 
