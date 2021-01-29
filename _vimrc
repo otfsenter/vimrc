@@ -160,3 +160,6 @@ set spellcapcheck=
 
 " autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR><C-W>j
 autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR>
+
+noremap <F9> :r !python D:\code\vimrc\copy_img.py<CR>
+
