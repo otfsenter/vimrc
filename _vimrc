@@ -43,6 +43,8 @@ set smartcase
 " set foldmethod=manual
 set foldmethod=indent
 set foldnestmax=1
+autocmd FileType rst set foldmethod=indent
+autocmd FileType rst set foldnestmax=1
 nnoremap <space> za
 vnoremap <space> zf
 
