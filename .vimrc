@@ -40,6 +40,8 @@ set smartcase
 "set cursorline
 " set foldmethod=manual
 set foldmethod=indent
+autocmd FileType rst set foldmethod=indent
+autocmd FileType rst set foldnestmax=1
 set foldnestmax=1
 nnoremap <space> za
 vnoremap <space> zf
