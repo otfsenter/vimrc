@@ -43,7 +43,11 @@ def list_today_dir(dir_today):
 
 def get_max_image_int(image_name_list):
     image_int_list = [int(i) for i in image_name_list]
-    return max(image_int_list)
+
+    if image_int_list:
+        return max(image_int_list)
+    else:
+        return 0
 
 
 def run():
