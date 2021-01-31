@@ -1,11 +1,13 @@
 from PIL import ImageGrab
 import os
+from pathlib import Path
 
 os_name = os.name
 if os_name == 'nt':
     image_root = r'D:\images'
 else:
-    image_root = '~/images'
+    image_user_root = Path(__file__).resolve().parent.parent.parent
+    image_root = os.path.join(image_user_root, 'images')
 
 
 def write_iamge_to_local(image_path):
@@ -26,7 +28,7 @@ def get_today():
 def make_today_dir(date_today):
     today_dir = os.path.join(image_root, date_today)
     if not os.path.exists(today_dir):
-        os.mkdir(today_dir)
+        os.makedirs(today_dir)
 
     return today_dir
 
