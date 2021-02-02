@@ -1,13 +1,11 @@
 from PIL import ImageGrab
 import os
-from pathlib import Path
 
 os_name = os.name
 if os_name == 'nt':
     image_root = r'D:\images'
 else:
-    image_user_root = Path(__file__).resolve().parent.parent.parent
-    image_root = os.path.join(image_user_root, 'images')
+    image_root = '~/images'
 
 
 def write_iamge_to_local(image_path):
@@ -28,7 +26,7 @@ def get_today():
 def make_today_dir(date_today):
     today_dir = os.path.join(image_root, date_today)
     if not os.path.exists(today_dir):
-        os.makedirs(today_dir)
+        os.mkdir(today_dir)
 
     return today_dir
 
@@ -37,7 +35,7 @@ def list_today_dir(dir_today):
     name_list = []
     for dirpath, dirnames, filenames in os.walk(dir_today):
         for filename in filenames:
-            name = str(filename).split('.')[0]
+            name = str(filename).split('.')[0].split('-')[0]
             name_list.append(name)
 
     return name_list
@@ -60,7 +58,7 @@ def run():
     #
     image_name_list = list_today_dir(dir_today)
     max_image_int = get_max_image_int(image_name_list)
-    new_image_name = str(max_image_int + 1) + '.png'
+    new_image_name = str(max_image_int + 1) + '-' + date_today + '.png'
     new_image_path = os.path.join(dir_today, new_image_name)
 
     write_iamge_to_local(new_image_path)
@@ -75,3 +73,4 @@ def run():
 
 global_a = run()
 print(global_a)
+
