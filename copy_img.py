@@ -1,11 +1,13 @@
 from PIL import ImageGrab
 import os
+from pathlib import Path
 
 os_name = os.name
 if os_name == 'nt':
     image_root = r'D:\images'
 else:
-    image_root = '~/images'
+    path_user_root = Path(__file__).resolve().parent.parent.parent
+    image_root = os.path.join(path_user_root, 'images')
 
 
 def write_iamge_to_local(image_path):
