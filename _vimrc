@@ -57,16 +57,16 @@ set scrolloff=5
 set wildmenu
 
 
-function HeaderPython()
-    if g:islinux
+if g:islinux
+    function HeaderPython()
         call setline(1, "#!/usr/bin/env python3")
-    endif
-    call setline(2, "# -*- coding: utf-8 -*-")
-    call setline(3, "# author: otfsenter")
-    normal G
-    normal o
-endf
-autocmd bufnewfile *.py call HeaderPython()
+        call setline(2, "# -*- coding: utf-8 -*-")
+        call setline(3, "# author: otfsenter")
+        normal G
+        normal o
+    endf
+    autocmd bufnewfile *.py call HeaderPython()
+endif
 
 if g:iswindows
     source $VIMRUNTIME/vimrc_example.vim
@@ -101,9 +101,6 @@ if g:iswindows
     endfunction
 endif
 
-" insert time
-iab mn <c-r>=strftime("(20%y-%m-%d %H:%M)")<cr>
-iab mi .. image:: ./images/1.png
 
 " set path to find file
 if g:iswindows
@@ -111,12 +108,11 @@ if g:iswindows
 endif
 
 " todo list
-inoremap mtn - [ ] <c-r>=strftime("(20%y-%m-%d %H:%M)")<cr>
-map <leader>t ^f[l<ESC>ci] <esc>
+inoremap <leader>t - [ ] <c-r>=strftime("(20%y-%m-%d %H:%M)")<cr>
+map <leader><space> ^f[l<ESC>ci] <esc>
 map <leader>d ^f[l<ESC>ci]done<esc>
 map <leader>i ^f[l<ESC>ci]doing<esc>
 
-inoremap { {<cr>}<esc>O
 
 " F4 read tree in file
 if g:iswindows
@@ -133,22 +129,20 @@ else
 endif
 
 " autocmd filetype python nmap <F5> :w!<CR>:!python %<CR>
-autocmd filetype python nmap <F5> :w!<CR>:compiler python<CR>:make <bar> copen<CR>
-autocmd filetype python imap <F5> :w!<CR>:compiler python<CR>:make <bar> copen<CR>
-autocmd filetype java nnoremap <F5> :!javac %<CR> :!java %:r<CR>
+autocmd filetype python nmap <m-r> :w!<CR>:compiler python<CR>:make <bar> copen<CR>
+autocmd filetype python imap <m-r> :w!<CR>:compiler python<CR>:make <bar> copen<CR>
+autocmd filetype java nnoremap <m-r> :!javac %<CR> :!java %:r<CR>
+
+inoremap <m-p> <ESC>yiWA=<C-R>=<C-R>"<CR><ESC>
 
 if g:iswindows
-    " Ebbinghaus
-    noremap <F6> :r !python D:\code\vimrc\day_study.py<CR>
+    nnoremap <m-o> :w!<CR>:e token.py<CR>:!python %<CR><CR>
+    noremap <m-i> :r !python D:\code\vimrc\copy_img.py<CR>
+else
+    noremap <m-i> :r !python3 ~/code/vimrc/copy_img.py<CR>
 endif
 
-" add num
-inoremap <F7> <ESC>yiWA=<C-R>=<C-R>"<CR><ESC>
-
-if g:iswindows
-    " token
-    noremap <F8> :w!<CR> :e token.py<CR>:!python %<CR>
-endif
+noremap <m-c> viwy:vim /<C-R>"/ %<CR><CR>:cw<CR>
 
 map <Enter> o<ESC>j
 map <S-Enter> O<ESC>
@@ -160,9 +154,5 @@ set spelllang=en_us,cjk
 set spellcapcheck=
 
 
-" autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR><C-W>j
-autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR>
-
-noremap <m-i> :r !python D:\code\vimrc\copy_img.py<CR>
-autocmd! CursorMoved * normal zz
-
+autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR><C-W>j
+" autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR>
