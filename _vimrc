@@ -159,3 +159,10 @@ set spellcapcheck=
 
 autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR><C-W>j
 " autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR>
+"
+
+if g:islinux
+    set tags+=~/code/tags
+endif
+
+    
