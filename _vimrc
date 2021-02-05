@@ -129,9 +129,15 @@ else
 endif
 
 " autocmd filetype python nmap <F5> :w!<CR>:!python %<CR>
-autocmd filetype python nmap <m-r> :w!<CR>:compiler python<CR>:make <bar> copen<CR>
-autocmd filetype python imap <m-r> :w!<CR>:compiler python<CR>:make <bar> copen<CR>
-autocmd filetype java nnoremap <m-r> :!javac %<CR> :!java %:r<CR>
+if g:iswindows
+    autocmd filetype python nmap <m-r> :w!<CR>:compiler python<CR>:make <bar> copen<CR>
+    autocmd filetype python imap <m-r> :w!<CR>:compiler python<CR>:make <bar> copen<CR>
+    autocmd filetype java nnoremap <m-r> :!javac %<CR> :!java %:r<CR>
+else
+    autocmd filetype python nmap ® :w!<CR>:compiler python<CR>:make <bar> copen<CR>
+    autocmd filetype python imap ® :w!<CR>:compiler python<CR>:make <bar> copen<CR>
+    autocmd filetype java nnoremap ® :!javac %<CR> :!java %:r<CR>
+endif
 
 inoremap <m-p> <ESC>yiWA=<C-R>=<C-R>"<CR><ESC>
 
@@ -157,12 +163,13 @@ set spellcapcheck=
 autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR><C-W>j
 " autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR>
 
-set tags+=D:\code\vimrc\tags
+if g:iswindows
+    set tags+=D:\code\vimrc\tags
+endif
 
-noremap <m-d> !normal :s/\\/\\\\/g<CR>
 
 
-" filetype off
+filetype off
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
