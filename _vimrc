@@ -120,7 +120,7 @@ if g:iswindows
     inoremap <F4> <esc>:e tree<cr>:%d<cr>:r !tree /F /A .<cr>:w!<CR>
 endif
 
-" F5 run python scripts 
+" F5 run python scripts
 
 if g:iswindows
     set makeprg=python\ %
@@ -148,7 +148,11 @@ else
     noremap <m-i> :r !python3 ~/code/vimrc/copy_img.py<CR>
 endif
 
-noremap <m-c> viwy:vim /<C-R>"/ %<CR><CR>:cw<CR>
+if g:iswindows
+    noremap <m-c> viwy:vim /<C-R>"/ %<CR><CR>:cw<CR>
+else
+    noremap ç viwy:vim /<C-R>"/ %<CR><CR>:cw<CR>
+endif
 
 map <Enter> o<ESC>j
 map <S-Enter> O<ESC>
@@ -176,11 +180,19 @@ call vundle#begin()
 
 Plugin 'dense-analysis/ale'
 
+Plugin 'davidhalter/jedi-vim'
+
+
 call vundle#end()
 
 
-let g:ale_linters = {'python': ['flake8'], 'reStructuredText': ['rstcheck']}
-let g:ale_fixers = {'python': ['remove_trailing_lines', 'trim_whitespace', 'autopep8']}
+let g:ale_linters = {'python': ['flake8', 'tsserver'], 'reStructuredText': ['rstcheck']}
 
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'python': ['black'],
+\}
+
+let g:ale_fix_on_save = 1
 
 nnoremap <F2> :ALENext<CR>
