@@ -180,7 +180,7 @@ call vundle#begin()
 
 Plugin 'dense-analysis/ale'
 
-Plugin 'davidhalter/jedi-vim'
+" Plugin 'davidhalter/jedi-vim'
 
 
 call vundle#end()
