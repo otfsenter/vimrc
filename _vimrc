@@ -118,7 +118,7 @@ endif
 map <Enter> o<ESC>j
 map <S-Enter> O<ESC>
 
-nnoremap <C-l> :nohlsearch<CR>
+nnoremap <leader>l :nohlsearch<CR>
 
 
 set spelllang=en_us,cjk
