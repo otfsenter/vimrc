@@ -4,6 +4,13 @@ set guioptions-=T
 
 set number
 set guifont=consolas:h12
+set backspace=indent,eol,start
+
+
+let mapleader = ','
+" set timeout
+" set timeoutlen=150
+" set ttimeoutlen=100
 
 autocmd TextChanged,TextChangedI *.rst,*.txt,*.py silent write
 
@@ -39,7 +46,7 @@ set nowritebackup
 set ignorecase
 set smartcase
 
-"set cursorline
+" fold
 " set foldmethod=manual
 set foldmethod=indent
 set foldnestmax=1
@@ -56,17 +63,6 @@ let $LANG = 'en_US'
 set scrolloff=5
 set wildmenu
 
-
-if g:islinux
-    function HeaderPython()
-        call setline(1, "#!/usr/bin/env python3")
-        call setline(2, "# -*- coding: utf-8 -*-")
-        call setline(3, "# author: otfsenter")
-        normal G
-        normal o
-    endf
-    autocmd bufnewfile *.py call HeaderPython()
-endif
 
 if g:iswindows
     source $VIMRUNTIME/vimrc_example.vim
@@ -107,11 +103,6 @@ if g:iswindows
     set path+=D:/note/pydict/source/**
 endif
 
-" todo list
-inoremap <m-m> - [ ] <c-r>=strftime("(20%y-%m-%d %H:%M) ")<cr>
-map <leader><space> ^f[l<ESC>ci] <esc>
-map <leader>d ^f[l<ESC>ci]done<esc>
-map <leader>i ^f[l<ESC>ci]doing<esc>
 
 
 " F4 read tree in file
@@ -120,39 +111,9 @@ if g:iswindows
     inoremap <F4> <esc>:e tree<cr>:%d<cr>:r !tree /F /A .<cr>:w!<CR>
 endif
 
-" F5 run python scripts
 
-if g:iswindows
-    set makeprg=python\ %
-else
-    set makeprg=python3\ %
-endif
 
-" autocmd filetype python nmap <F5> :w!<CR>:!python %<CR>
-if g:iswindows
-    autocmd filetype python nmap <m-r> :w!<CR>:compiler python<CR>:make <bar> copen<CR>
-    autocmd filetype python imap <m-r> :w!<CR>:compiler python<CR>:make <bar> copen<CR>
-    autocmd filetype java nnoremap <m-r> :!javac %<CR> :!java %:r<CR>
-else
-    autocmd filetype python nmap ® :w!<CR>:compiler python<CR>:make <bar> copen<CR>
-    autocmd filetype python imap ® :w!<CR>:compiler python<CR>:make <bar> copen<CR>
-    autocmd filetype java nnoremap ® :!javac %<CR> :!java %:r<CR>
-endif
 
-inoremap <m-p> <ESC>yiWA=<C-R>=<C-R>"<CR><ESC>
-
-if g:iswindows
-    nnoremap <m-o> :w!<CR>:e $doc/token.py<CR>:!python %<CR><CR>
-    noremap <m-i> :r !python D:\code\vimrc\copy_img.py<CR>
-else
-    noremap <m-i> :r !python3 ~/code/vimrc/copy_img.py<CR>
-endif
-
-if g:iswindows
-    noremap <m-c> viwy:vim /<C-R>"/ %<CR><CR>:cw<CR>
-else
-    noremap ç viwy:vim /<C-R>"/ %<CR><CR>:cw<CR>
-endif
 
 map <Enter> o<ESC>j
 map <S-Enter> O<ESC>
@@ -164,35 +125,74 @@ set spelllang=en_us,cjk
 set spellcapcheck=
 
 
-autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR><C-W>j
-" autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR>
-
 if g:iswindows
     set tags+=D:\code\vimrc\tags
+else
+    set tags+=~/code/tags
 endif
-
-
-
-" filetype off
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
 Plugin 'dense-analysis/ale'
-
 " Plugin 'davidhalter/jedi-vim'
-
-
 call vundle#end()
 
 
+" for ALE plugin
 let g:ale_linters = {'python': ['flake8', 'tsserver'], 'reStructuredText': ['rstcheck']}
-
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'python': ['black'],
 \}
-
 let g:ale_fix_on_save = 1
 
-nnoremap <F2> :ALENext<CR>
+
+" rr: run, run python script
+if g:iswindows
+    set makeprg=python\ %
+else
+    set makeprg=python3\ %
+endif
+" autocmd filetype python nmap <F5> :w!<CR>:!python %<CR>
+autocmd filetype python nmap <leader>rr :w!<CR>:compiler python<CR>:make <bar> copen<CR>
+
+
+" t, <space>, d, i: todo, todo list
+nnoremap <leader>t i- [ ] <C-r>=strftime("(20%y-%m-%d %H:%M) ")<CR>
+nnoremap <leader><space> mz^f[lci] <esc>`z
+nnoremap <leader>d mz^f[lci]done<esc>`z
+nnoremap <leader>i mz^f[lci]doing<esc>`z
+
+" w, v: word, visual find word under cursor
+nnoremap <leader>w viwy:vim /\V<C-R>"/ %<CR><CR>:cw<CR>
+xnoremap <leader>v y:vim /\V<C-R>"/ %<CR><CR>:cw<CR>
+
+" o: token
+if g:iswindows
+    nnoremap <leader>o :w!<CR>:e $doc/token.py<CR>:!python %<CR><CR>
+endif
+
+" c: copy image
+if g:iswindows
+    noremap <leader>c :r !python D:\code\vimrc\copy_img.py<CR>
+else
+    noremap <leader>c :r !python3 ~/code/vimrc/copy_img.py<CR>
+endif
+
+" p: plus
+nnoremap <leader>p yiWA=<C-R>=<C-R>"<CR><ESC>
+
+" e: error, find error is python file
+autocmd filetype python nnoremap <leader>e :ALENext<CR>
+
+" for quickfix
+autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR><C-W>j
+" autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR>
+
+
+" windows jump
+
+map <C-j> <C-W>j
+map <C-h> <C-W>h
+map <C-k> <C-W>k
+map <C-l> <C-W>l
