@@ -118,6 +118,7 @@ endif
 map <Enter> o<ESC>j
 map <S-Enter> O<ESC>
 
+" l: nohl
 nnoremap <leader>l :nohlsearch<CR>
 
 
@@ -196,3 +197,16 @@ map <C-j> <C-W>j
 map <C-h> <C-W>h
 map <C-k> <C-W>k
 map <C-l> <C-W>l
+
+" used letters
+" l: nohl
+" rr: run, run python script
+" t, <space>, d, i: todo, todo list
+" w, v: word, visual find word under cursor
+" o: token
+" c: copy image
+" p: plus
+" e: error, find error is python file
+
+" unused letters
+" bfghjkmnqsuxyz
