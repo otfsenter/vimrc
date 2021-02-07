@@ -65,7 +65,10 @@ def run():
 
     write_iamge_to_local(new_image_path)
 
-    new_image_path = str(new_image_path).replace('\\', '\\\\')
+    if os_name == 'nt':
+        new_image_path = str(new_image_path).replace('\\', '\\\\')
+    else:
+        new_image_path = '/' + str(new_image_path)
 
     sphinx_image = '.. image:: ' + new_image_path
 

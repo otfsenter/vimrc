@@ -135,6 +135,8 @@ endif
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'dense-analysis/ale'
+Plugin 'ycm-core/YouCompleteMe'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plugin 'davidhalter/jedi-vim'
 call vundle#end()
 
