@@ -134,13 +134,22 @@ else
     set tags+=~/code/tags
 endif
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'dense-analysis/ale'
-Plugin 'ycm-core/YouCompleteMe'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plugin 'davidhalter/jedi-vim'
-call vundle#end()
+if g:iswindows
+    set rtp+=~/.vim/bundle/Vundle.vim
+    call vundle#begin()
+    Plugin 'dense-analysis/ale'
+    Plugin 'skywind3000/asyncrun.vim'
+    call vundle#end()
+endif
+
+if g:islinux
+    set rtp+=~/.vim/bundle/Vundle.vim
+    call vundle#begin()
+    Plugin 'dense-analysis/ale'
+    Plugin 'ycm-core/YouCompleteMe'
+    call vundle#end()
+endif
+
 
 
 " for ALE plugin
@@ -159,11 +168,11 @@ else
     set makeprg=python3\ %
 endif
 " autocmd filetype python nmap <F5> :w!<CR>:!python %<CR>
-autocmd filetype python nmap <leader>rr :w!<CR>:compiler python<CR>:make <bar> copen<CR>
+autocmd filetype python nmap <leader>rr :w!<CR>:compiler python<CR>:make<CR>:copen<CR>
 
 
 " t, <space>, d, i: todo, todo list
-nnoremap <leader>t i- [ ] <C-r>=strftime("(20%y-%m-%d %H:%M) ")<CR>
+inoremap <leader>t i- [ ] <C-r>=strftime("(20%y-%m-%d %H:%M) ")<CR>
 nnoremap <leader><space> mz^f[lci] <esc>`z
 nnoremap <leader>d mz^f[lci]done<esc>`z
 nnoremap <leader>i mz^f[lci]doing<esc>`z
@@ -174,14 +183,17 @@ xnoremap <leader>v y:vim /\V<C-R>"/ %<CR><CR>:cw<CR>
 
 " o: token
 if g:iswindows
-    nnoremap <leader>o :w!<CR>:e $doc/token.py<CR>:!python %<CR><CR>
+    nnoremap <leader>o :w!<CR>:e token.py<CR>:AsyncRun python %<CR>
 endif
 
 " c: copy image
 if g:iswindows
-    noremap <leader>c :r !python D:\code\vimrc\copy_img.py<CR>
+    inoremap <leader>c <ESC>:r !python D:\code\vimrc\copy_img.py<CR>
+    nnoremap <leader>c :r !python D:\code\vimrc\copy_img.py<CR>
+    inoremap <ESC> <ESC>:AsyncRun python D:\code\vimrc\input_a.py<CR>
+    nnoremap <ESC> :AsyncRun python D:\code\vimrc\input_a.py<CR>
 else
-    noremap <leader>c :r !python3 ~/code/vimrc/copy_img.py<CR>
+    inoremap <leader>c :r !python3 ~/code/vimrc/copy_img.py<CR>
 endif
 
 " p: plus
@@ -219,5 +231,3 @@ map <C-l> <C-W>l
 
 " unused letters
 " bfghjkmnqsuxyz
-
-
