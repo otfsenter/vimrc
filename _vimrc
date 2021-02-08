@@ -33,6 +33,8 @@ syntax on
 
 filetype plugin indent on
 
+
+
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -193,6 +195,11 @@ autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR><C-W>j
 " autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR>
 
 
+
+" b, f for bold, delete tag
+autocmd FileType rst inoremap ,f <ESC>/<++><CR>c4l<space>
+autocmd FileType rst inoremap ,b ****<++><ESC>F*hi
+
 " windows jump
 
 map <C-j> <C-W>j
@@ -212,3 +219,5 @@ map <C-l> <C-W>l
 
 " unused letters
 " bfghjkmnqsuxyz
+
+
