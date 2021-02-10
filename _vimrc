@@ -103,6 +103,8 @@ endif
 " set path to find file
 if g:iswindows
     set path+=D:/note/pydict/source/**
+else
+    set path+=~/note/idlepig/source/**
 endif
 
 
@@ -193,7 +195,8 @@ if g:iswindows
     inoremap <ESC> <ESC>:AsyncRun python D:\code\vimrc\input_a.py<CR>
     nnoremap <ESC> :AsyncRun python D:\code\vimrc\input_a.py<CR>
 else
-    inoremap <leader>c :r !python3 ~/code/vimrc/copy_img.py<CR>
+    inoremap <leader>c <ESC>:r !python3 ~/code/vimrc/copy_img.py<CR>
+    nnoremap <leader>c :r !python3 ~/code/vimrc/copy_img.py<CR>
 endif
 
 " p: plus
