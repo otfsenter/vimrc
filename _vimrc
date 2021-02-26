@@ -7,7 +7,7 @@ set guifont=consolas:h12
 set backspace=indent,eol,start
 
 
-let mapleader = ','
+" let mapleader = ','
 " set timeout
 " set timeoutlen=150
 " set ttimeoutlen=100
@@ -104,7 +104,7 @@ endif
 if g:iswindows
     set path+=D:/note/pydict/source/**
 else
-    set path+=~/note/idlepig/source/**
+    set path+=/Users/zhouxinzheng/note/idlepig/source/**
 endif
 
 
@@ -174,7 +174,7 @@ autocmd filetype python nmap <leader>rr :w!<CR>:compiler python<CR>:make<CR>:cop
 
 
 " t, <space>, d, i: todo, todo list
-inoremap <leader>t i- [ ] <C-r>=strftime("(20%y-%m-%d %H:%M) ")<CR>
+inoremap <leader>t - [ ] <C-r>=strftime("(20%y-%m-%d %H:%M) ")<CR>
 nnoremap <leader><space> mz^f[lci] <esc>`z
 nnoremap <leader>d mz^f[lci]done<esc>`z
 nnoremap <leader>i mz^f[lci]doing<esc>`z
@@ -212,8 +212,8 @@ autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR><C-W>j
 
 
 " b, f for bold, delete tag
-autocmd FileType rst inoremap ,f <ESC>/<++><CR>c4l<space>
-autocmd FileType rst inoremap ,b ****<++><ESC>F*hi
+autocmd FileType rst inoremap <leader>f <ESC>/<++><CR>c4l<space>
+autocmd FileType rst inoremap <leader>b ****<++><ESC>F*hi
 
 " windows jump
 
